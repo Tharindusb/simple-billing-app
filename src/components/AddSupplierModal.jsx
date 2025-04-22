@@ -2,103 +2,86 @@
 import React, { useState } from "react";
 import "../styles/AddSupplierModal.css";
 
-export default function AddSupplierModal({ onClose, onAdd }) {
-  const [form, setForm] = useState({
-    id: "",
-    name: "",
-    billRef: "",
-    total: "",
-    paid: "",
-    date: "", // (new)
-  });
+export default function AddSupplierModal({ onAddSupplier, onClose }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [tel, setTel] = useState("");
+  const [address, setAddress] = useState("");
+  const [error, setError] = useState("");
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (!name.trim()) {
+      setError("Supplier name is required.");
+      return;
+    }
+
     const newSupplier = {
-      id: form.id,
-      name: form.name,
-      billRef: form.billRef,
-      total: parseFloat(form.total),
-      paid: parseFloat(form.paid),
-      date: form.date, // (new)
+      id: generateSupplierId(),
+      name: name.trim(),
+      email: email.trim(),
+      tel: tel.trim(),
+      address: address.trim(),
     };
-    onAdd(newSupplier);
-  }
+
+    onAddSupplier(newSupplier);
+    onClose();
+  };
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
-        <h3>Add New Supplier</h3>
-        <form onSubmit={handleSubmit} className="supplier-form">
-          <label>
-            Date {/* (new) */}
+      <div className="modal">
+        <h2>Add New Supplier</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Supplier Name *</label>
             <input
-              name="date"
-              type="date"
-              value={form.date}
-              onChange={handleChange}
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
-          </label>
-          <label>
-            Supplier ID
-            <input name="id" value={form.id} onChange={handleChange} required />
-          </label>
-          <label>
-            Name
+          </div>
+          <div className="form-group">
+            <label>Email Address</label>
             <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-          </label>
-          <label>
-            Bill Ref #
+          </div>
+          <div className="form-group">
+            <label>Telephone Number</label>
             <input
-              name="billRef"
-              value={form.billRef}
-              onChange={handleChange}
-              required
+              type="tel"
+              value={tel}
+              onChange={(e) => setTel(e.target.value)}
             />
-          </label>
-          <label>
-            Total Amount
-            <input
-              name="total"
-              type="number"
-              step="0.01"
-              value={form.total}
-              onChange={handleChange}
-              required
+          </div>
+          <div className="form-group">
+            <label>Address</label>
+            <textarea
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
-          </label>
-          <label>
-            Paid Amount
-            <input
-              name="paid"
-              type="number"
-              step="0.01"
-              value={form.paid}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <div className="form-actions">
-            <button type="button" onClick={onClose} className="btn-cancel">
+          </div>
+          {error && <p className="error">{error}</p>}
+          <div className="button-group">
+            <button type="submit">Add Supplier</button>
+            <button type="button" onClick={onClose}>
               Cancel
-            </button>
-            <button type="submit" className="btn-submit">
-              Add
             </button>
           </div>
         </form>
       </div>
     </div>
   );
+}
+
+// Utility function to generate unique supplier IDs
+let supplierIdCounter = 1;
+function generateSupplierId() {
+  const id = `SUP${supplierIdCounter.toString().padStart(3, "0")}`;
+  supplierIdCounter += 1;
+  return id;
 }

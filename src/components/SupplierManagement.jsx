@@ -7,30 +7,12 @@ import AddBillButton from "./AddBillButton";
 import AddBillModal from "./AddBillModal";
 import "../styles/SupplierManagement.css";
 
-const initialSuppliers = [
-  {
-    id: "SUP001",
-    name: "Acme Corp",
-    billRef: "BILL1001",
-    total: 1200,
-    paid: 800,
-    date: "2025-04-20", // (new) date of invoice/bill
-  },
-  {
-    id: "SUP002",
-    name: "Global Supplies",
-    billRef: "BILL1002",
-    total: 500,
-    paid: 200,
-    date: "2025-04-18", // (new)
-  },
-];
-
 export default function SupplierManagement() {
   const [suppliers, setSuppliers] = useState([]);
   const [bills, setBills] = useState([]); // or separate initialBills
   const [isSupplierModalOpen, setSupplierModalOpen] = useState(false);
   const [isBillModalOpen, setBillModalOpen] = useState(false); // (new)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleAddSupplier(newSupplier) {
     setSuppliers((prev) => [...prev, newSupplier]);
@@ -53,7 +35,7 @@ export default function SupplierManagement() {
       {isSupplierModalOpen && (
         <AddSupplierModal
           onClose={() => setSupplierModalOpen(false)}
-          onAdd={handleAddSupplier}
+          onAddSupplier={handleAddSupplier}
         />
       )}
       {isBillModalOpen && ( // new
