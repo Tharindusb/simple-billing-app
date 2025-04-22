@@ -1,0 +1,14 @@
+.add-bill-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-left: 0.5rem;
+  }
+  .add-bill-btn:hover {
+    background-color: #0069d9;
+  }

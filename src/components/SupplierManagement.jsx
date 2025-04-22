@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import SupplierTable from "./SupplierTable";
 import AddSupplierButton from "./AddSupplierButton";
 import AddSupplierModal from "./AddSupplierModal";
+import AddBillButton from "./AddBillButton";
+import AddBillModal from "./AddBillModal";
 import "../styles/SupplierManagement.css";
 
 const initialSuppliers = [
@@ -25,23 +27,40 @@ const initialSuppliers = [
 ];
 
 export default function SupplierManagement() {
-  const [suppliers, setSuppliers] = useState(initialSuppliers);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [suppliers, setSuppliers] = useState([]);
+  const [bills, setBills] = useState([]); // or separate initialBills
+  const [isSupplierModalOpen, setSupplierModalOpen] = useState(false);
+  const [isBillModalOpen, setBillModalOpen] = useState(false); // (new)
 
-  function handleAdd(newSupplier) {
+  function handleAddSupplier(newSupplier) {
     setSuppliers((prev) => [...prev, newSupplier]);
-    setModalOpen(false);
+    setSupplierModalOpen(false);
+  }
+
+  function handleAddBill(newBill) {
+    setBills((prev) => [...prev, newBill]); // (new)
+    setBillModalOpen(false); // (new)
   }
 
   return (
     <div className="supplier-management">
       <h2 className="sm-heading">Supplier Management</h2>
-      <AddSupplierButton onClick={() => setModalOpen(true)} />
-      <SupplierTable suppliers={suppliers} />
-      {isModalOpen && (
+      <div className="action-buttons">
+        <AddSupplierButton onClick={() => setSupplierModalOpen(true)} />
+        <AddBillButton onClick={() => setBillModalOpen(true)} /> {/* new */}
+      </div>
+      <SupplierTable suppliers={suppliers} bills={bills} /> {/* pass bills */}
+      {isSupplierModalOpen && (
         <AddSupplierModal
-          onClose={() => setModalOpen(false)}
-          onAdd={handleAdd}
+          onClose={() => setSupplierModalOpen(false)}
+          onAdd={handleAddSupplier}
+        />
+      )}
+      {isBillModalOpen && ( // new
+        <AddBillModal
+          onClose={() => setBillModalOpen(false)}
+          onAdd={handleAddBill}
+          suppliers={suppliers}
         />
       )}
     </div>

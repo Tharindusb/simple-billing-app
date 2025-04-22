@@ -3,7 +3,7 @@ import React from "react";
 import { useSettings } from "../context/SettingsContext";
 import "../styles/SupplierTable.css";
 
-export default function SupplierTable({ suppliers }) {
+export default function SupplierTable({ suppliers, bills }) {
   const { currency, fontSize } = useSettings();
 
   const format = (value) =>
@@ -28,17 +28,17 @@ export default function SupplierTable({ suppliers }) {
         </tr>
       </thead>
       <tbody>
-        {suppliers.map((s) => {
-          const remaining = s.total - s.paid;
-          const formattedDate = new Date(s.date).toLocaleDateString();
+        {bills.map((b) => {
+          const remaining = b.total - (b.paid ?? 0);
+          const supplier = suppliers.find((s) => s.id === b.supplierId);
           return (
-            <tr key={`${s.id}-${s.billRef}`}>
-              <td>{formattedDate}</td>
-              <td>{s.id}</td>
-              <td>{s.name}</td>
-              <td>{s.billRef}</td>
-              <td>{format(s.total)}</td>
-              <td>{format(s.paid)}</td>
+            <tr key={`${b.supplierId}-${b.billRef}`}>
+              <td>{new Date(b.date).toLocaleDateString()}</td>
+              <td>{b.supplierId}</td>
+              <td>{supplier ? supplier.name : "Unknown"}</td>
+              <td>{b.billRef}</td>
+              <td>{format(b.total)}</td>
+              <td>{format(b.paid ?? 0)}</td>
               <td
                 className={remaining > 0 ? "remaining-due" : "remaining-clear"}
               >
