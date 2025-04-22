@@ -1,0 +1,10 @@
+/* src/components/SettingsButton.css */
+.settings-btn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  

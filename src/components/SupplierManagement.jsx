@@ -1,3 +1,4 @@
+// src/components/SupplierManagement.jsx
 import React, { useState } from "react";
 import SupplierTable from "./SupplierTable";
 import AddSupplierButton from "./AddSupplierButton";
@@ -5,13 +6,13 @@ import AddSupplierModal from "./AddSupplierModal";
 import "../styles/SupplierManagement.css";
 
 const initialSuppliers = [
-  // example data; you can fetch from API instead
   {
     id: "SUP001",
     name: "Acme Corp",
     billRef: "BILL1001",
     total: 1200,
     paid: 800,
+    date: "2025-04-20", // (new) date of invoice/bill
   },
   {
     id: "SUP002",
@@ -19,6 +20,7 @@ const initialSuppliers = [
     billRef: "BILL1002",
     total: 500,
     paid: 200,
+    date: "2025-04-18", // (new)
   },
 ];
 

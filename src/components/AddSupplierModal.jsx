@@ -1,3 +1,4 @@
+// src/components/AddSupplierModal.jsx
 import React, { useState } from "react";
 import "../styles/AddSupplierModal.css";
 
@@ -8,6 +9,7 @@ export default function AddSupplierModal({ onClose, onAdd }) {
     billRef: "",
     total: "",
     paid: "",
+    date: "", // (new)
   });
 
   function handleChange(e) {
@@ -23,6 +25,7 @@ export default function AddSupplierModal({ onClose, onAdd }) {
       billRef: form.billRef,
       total: parseFloat(form.total),
       paid: parseFloat(form.paid),
+      date: form.date, // (new)
     };
     onAdd(newSupplier);
   }
@@ -32,6 +35,16 @@ export default function AddSupplierModal({ onClose, onAdd }) {
       <div className="modal-content">
         <h3>Add New Supplier</h3>
         <form onSubmit={handleSubmit} className="supplier-form">
+          <label>
+            Date {/* (new) */}
+            <input
+              name="date"
+              type="date"
+              value={form.date}
+              onChange={handleChange}
+              required
+            />
+          </label>
           <label>
             Supplier ID
             <input name="id" value={form.id} onChange={handleChange} required />
