@@ -5,6 +5,8 @@ import AddSupplierButton from "./AddSupplierButton";
 import AddSupplierModal from "./AddSupplierModal";
 import AddBillButton from "./AddBillButton";
 import AddBillModal from "./AddBillModal";
+import SearchButton from "./SearchButton";
+import SearchModal from "./SearchModal";
 import "../styles/SupplierManagement.css";
 
 export default function SupplierManagement() {
@@ -13,6 +15,7 @@ export default function SupplierManagement() {
   const [isSupplierModalOpen, setSupplierModalOpen] = useState(false);
   const [isBillModalOpen, setBillModalOpen] = useState(false); // (new)
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSearchOpen, setSearchOpen] = useState(false);
 
   function handleAddSupplier(newSupplier) {
     setSuppliers((prev) => [...prev, newSupplier]);
@@ -30,6 +33,7 @@ export default function SupplierManagement() {
       <div className="action-buttons">
         <AddSupplierButton onClick={() => setSupplierModalOpen(true)} />
         <AddBillButton onClick={() => setBillModalOpen(true)} /> {/* new */}
+        <SearchButton onClick={() => setSearchOpen(true)} />
       </div>
       <SupplierTable suppliers={suppliers} bills={bills} /> {/* pass bills */}
       {isSupplierModalOpen && (
@@ -43,6 +47,13 @@ export default function SupplierManagement() {
           onClose={() => setBillModalOpen(false)}
           onAdd={handleAddBill}
           suppliers={suppliers}
+        />
+      )}
+      {isSearchOpen && (
+        <SearchModal
+          suppliers={suppliers}
+          bills={bills}
+          onClose={() => setSearchOpen(false)}
         />
       )}
     </div>

@@ -1,0 +1,42 @@
+/* src/components/SearchButton.css */
+.action-btn {
+    background: #ffc107;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+    transition: background 0.2s;
+  }
+  .action-btn:hover {
+    background: #e0a800;
+  }
+  
+  /* Tooltip (reuse existing) */
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  .tooltiptext {
+    visibility: hidden;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
