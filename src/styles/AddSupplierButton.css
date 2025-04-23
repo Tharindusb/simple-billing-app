@@ -1,15 +1,52 @@
 .add-supplier-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    margin-bottom: 1rem;
-  }
-  .add-supplier-btn:hover {
-    background-color: #218838;
-  }
-  
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.add-supplier-btn:hover {
+  background-color: #218838;
+}
+
+/* Tooltip wrapper */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+/* Hidden by default */
+.tooltiptext {
+  visibility: hidden;
+  width: max-content;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+
+  /* Position above the button */
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+
+  /* Fade-in effect */
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Show on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
