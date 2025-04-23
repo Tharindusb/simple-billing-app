@@ -1,3 +1,10 @@
+.action-buttons {
+  display: flex;                     
+  align-items: center;              
+  gap: 0.75rem;                     
+  margin-bottom: 1rem;               
+}
+
 .add-bill-btn {
   background-color: #007bff;
   color: white;
